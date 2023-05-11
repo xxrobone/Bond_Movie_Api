@@ -10,7 +10,7 @@ let apikeys = apikeysArr;
 const key1 = createApiKey(getStringFromDate(), randomLetters(4), randomNumber());
 console.log(typeof(key1), key1)
 
-const apikeysArray = [123, 456, 789, 120, 102, 303, 404, 205];
+let apikeysArray = [123, 456, 789, 120, 102, 303, 404, 205];
 
 router.get('/', (req, res) => {
   res.json(apikeysArray);
@@ -30,24 +30,24 @@ router.get('/:id', (req, res) => {
   res.json(apikey);
 });
 
-router.delete('/:id', (req, res) => {
-  const apikeyId = parseInt(req.params.id);
-  const apikey = apikeys.find((a) => a.id === apikeyId);
+router.delete('/:apikey', (req, res) => {
+  const apikeyToDelete = parseInt(req.params.apikey);
+  const apikey = apikeysArray.find((a) => a === apikeyToDelete);
 
-  const user = apikey.user;
+  /* const user = apikey.user; */
 
   if (!apikey) {
     return res.status(404).json({
-      message: 'No apikey with this id, please check the id or try an other.',
+      message: 'No apikey found, unable to delete key.',
     });
   }
 
-  const filteredData = apikeys.filter((apikey) => apikey.id !== apikeyId);
+  const filteredData = apikeysArray.filter((a) => a !== apikeyToDelete);
 
-  apikeys = filteredData;
+  apikeysArray = filteredData;
 
   res.json(
-    `The apikey for user ${user} with the id: ${apikeyId} successfully removed`
+    `The apikey ${apikey} successfully removed`
   );
 });
 
