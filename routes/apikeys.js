@@ -81,6 +81,25 @@ router.post('/:apikey', (req, res) => {
   res.json(apikey);
 });
 
+// put // update key using params ??? 
+/* router.put('/:apikey', (req, res) => {
+  const apikeyToUpdate = req.params.apikey;
+  const apikey = parseInt(req.body);
+
+  const index = apikeysArray.findIndex((a) => a === apikeyToUpdate);
+
+  if (index === -1) {
+    return res.status(404).json({
+      message: 'No movie found with the given id, please check the id',
+    });
+  }
+
+  const updatedApikey = { ...apikeysArray[index], apikey };
+  apikeysArray[index] = updatedApikey;
+
+  res.json(`The api key ${apikeyToUpdate} was successfully updated to ${updatedApikey}`);
+}); */
+
 /* router.post('/', (req, res) => {
   const apikey = req.body;
 
