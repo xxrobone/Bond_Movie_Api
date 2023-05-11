@@ -1,14 +1,23 @@
 const express = require('express');
 const router = express.Router();
 const apikeysArr = require('../apikeyData');
-const {createApiKey, randomLetters, randomNumber, getStringFromDate} = require('../utils')
+const {
+  createApiKey,
+  randomLetters,
+  randomNumber,
+  getStringFromDate,
+} = require('../utils');
 
 let apikeys = apikeysArr;
 
 /* console.log(apikeysArr); */
 
-const key1 = createApiKey(getStringFromDate(), randomLetters(4), randomNumber());
-console.log(typeof(key1), key1)
+const key1 = createApiKey(
+  getStringFromDate(),
+  randomLetters(4),
+  randomNumber()
+);
+console.log(typeof key1, key1);
 
 let apikeysArray = [123, 456, 789, 120, 102, 303, 404, 205];
 
@@ -16,18 +25,18 @@ router.get('/', (req, res) => {
   res.json(apikeysArray);
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:apikey', (req, res) => {
   // converting string to number Id is a number in apikey data
-  const apikeyId = parseInt(req.params.id);
-  const apikey = apikeys.find((key) => key.id === apikeyId);
+  const apikeyToGet = parseInt(req.params.apikey);
+  const apikey = apikeysArray.find((key) => key === apikeyToGet);
 
-  if (!apikeys) {
+  if (!apikeysArray) {
     return res.status(404).json({
       message: 'No apikeys found, error fetching data',
     });
   }
 
-  res.json(apikey);
+  res.json(`Requested apikey: ${apikey} `);
 });
 
 router.delete('/:apikey', (req, res) => {
@@ -46,16 +55,13 @@ router.delete('/:apikey', (req, res) => {
 
   apikeysArray = filteredData;
 
-  res.json(
-    `The apikey ${apikey} successfully removed`
-  );
+  res.json(`The apikey ${apikey} successfully removed`);
 });
 
 // or just from params
 
 router.post('/:apikey', (req, res) => {
   const apikey = parseInt(req.params.apikey);
-
 
   if (apikey === '') {
     return res.status(400).json({
@@ -74,7 +80,6 @@ router.post('/:apikey', (req, res) => {
   apikeysArray.push(apikey);
   res.json(apikey);
 });
-
 
 /* router.post('/', (req, res) => {
   const apikey = req.body;
