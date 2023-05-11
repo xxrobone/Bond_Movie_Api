@@ -51,32 +51,8 @@ router.delete('/:id', (req, res) => {
   );
 });
 
-// or just from params
 
-router.post('/:apikey', (req, res) => {
-  const apikey = parseInt(req.params.apikey);
-
-
-  if (apikey === '') {
-    return res.status(400).json({
-      code: 'InvalidJsonInput',
-      message: 'apikey is missing a value, please include a apikey',
-    });
-  }
-
-  if (apikey === null || apikey === undefined) {
-    return res.status(400).json({
-      code: 'InvalidJsonInput',
-      message: 'Apikey is missing, please include an apikey',
-    });
-  }
-
-  apikeysArray.push(apikey);
-  res.json(apikey);
-});
-
-
-/* router.post('/', (req, res) => {
+router.post('/', (req, res) => {
   const apikey = req.body;
 
   
@@ -129,6 +105,6 @@ router.post('/:apikey', (req, res) => {
 
   apikeys.push(newApikey);
   res.json(newApikey);
-}); */
+});
 
 module.exports = router;
