@@ -41,9 +41,10 @@ router.delete('/:id', (req, res) => {
 
   movies = filteredData;
 
-  res.json(`The movie ${title} with the id: ${movieID} successfully removed`);
+  res
+    .status(200)
+    .json(`The movie ${title} with the id: ${movieID} successfully removed`);
 });
-
 
 // adding a movie
 router.post('/', (req, res) => {
