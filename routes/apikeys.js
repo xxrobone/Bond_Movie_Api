@@ -41,7 +41,7 @@ router.get('/', (req, res) => {
   res.json(apikeysArr2);
 });
 
-// adding a key from query http://localhost:5500/apikeys?apiKey=149PhxE9047
+// adding a key http://localhost:5500/apikeys?apiKey=149PhxE9047
 router.post('/', (req, res) => {
   const apikey = createApiKey(
     getStringFromDate(),
